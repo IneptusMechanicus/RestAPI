@@ -1,13 +1,22 @@
 $(document).ready(function(){
 
+	var page = 0;
+	var totalPages;
+	$("#prev").click(function(
+			if (page > 0)
+				{
+					page--;
+				}
+			));
+	$("#prev").click(function(
+			if (page < totalPages)
+				{
+					page++;
+				}
+			));
+	
 	$("#button").click(function ()
 	{	
-		var page = 0;
-		if(this.id != "")
-		{
-			page = parseInt(this.id);
-		}
-		
 		var perPage = $("#perPage").val();
 		if(perPage == 0 || perPage == "")
 		{
@@ -39,7 +48,6 @@ $(document).ready(function(){
 		if($("#priceMax").val() === 'undefined') priceMax = -1;
 		else priceMax = $("priceMax").val();
 		
-		var totalPages;
 		var itemsNum = 0;
 		
 		$.get({
