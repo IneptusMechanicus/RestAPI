@@ -8,21 +8,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Hello, there. Give me data.</h1>
+	<h3>Hello, there. Give me data.</h3>
 	<form id="dataSubmit">
 	  ID:
 	  <input type="number" name="id"><br>
 	  Instrument type:
-	  <input type="text" name="instrument"><br>
+	  <input type="text" name="type"><br>
 	  Brand:
 	  <input type="text" name="brand"><br>
 	  Model:
 	  <input type="text" name="model"><br>
-	  Serial Number:
-	  <input type="number" name="serialNumber"><br>
-	  <input type="submit" value="Submit" >
+	  Year:
+	  <input type="number" name="year"><br>
+	  Price:
+	  <input type="number" name="price"><br>
+	  <button id="send">Submit</button>
 	</form><br>
-	<button id="button">Get Users</button>
-	<table id="usersTable"></table>
+	<br><br>
+	<h3> Data retrieval form. Items per page required. Filters optional</h3>
+	Items per page: <input type="number" id="perPage" required><br>
+	Filter by type: <input type="text" id ="typeFilter"><br>
+	Filter by brand: <input type="text" id ="brandFilter"><br>
+	Filter by model: <input type="text" id ="modelFilter"><br>
+	Filter by year: <input type="number" id ="yearFilter"><br>
+	Price range:<br>
+	Minimum:<input type="number" id ="priceMin">
+	Maximum: <input type="number" id ="priceMax"><br>
+	<button id="button">Get Instruments</button><br>
+	<button id="prev">Previous Page</button>
+	<button id="next">Next Page</button><br>
+	
+	<table id="instrumentsTable">
+		<tr>
+		    <th>Instrument Type |</th>
+		    <th>Brand name      |</th> 
+		    <th>Model           |</th>
+		    <th>Release Year    |</th>
+		    <th>Price           |</th>
+  </tr>
+	</table>
+	<div id="pageButtons"></div>
 </body>
 </html>
