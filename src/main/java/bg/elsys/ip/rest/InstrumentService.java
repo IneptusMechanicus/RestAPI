@@ -59,7 +59,7 @@ public class InstrumentService
 		{
 			InstrumentPage = InstrumentPage.stream().filter(
 					(u) -> (u.getType().toLowerCase())
-					.equals(typeFilter.toLowerCase()) || typeFilter == null)
+					.equals(typeFilter.toLowerCase()))
 					.collect(Collectors.toList());
 		}
 		
@@ -67,7 +67,7 @@ public class InstrumentService
 		{
 			InstrumentPage = InstrumentPage.stream().filter(
 					(u) -> (u.getBrand().toLowerCase())
-					.equals(brandFilter.toLowerCase()) || brandFilter == null)
+					.equals(brandFilter.toLowerCase()))
 					.collect(Collectors.toList());
 		}
 		
@@ -75,28 +75,28 @@ public class InstrumentService
 		{
 			InstrumentPage = InstrumentPage.stream().filter(
 					(u) -> (u.getModel().toLowerCase())
-					.equals(modelFilter.toLowerCase()) || modelFilter == null)
+					.equals(modelFilter.toLowerCase()))
 					.collect(Collectors.toList());
 		}
 		
 		if(yearFilter != 0)
 		{
 			InstrumentPage = InstrumentPage.stream()
-					.filter((u) -> u.getYear() == yearFilter || yearFilter == 0)
+					.filter((u) -> u.getYear() == yearFilter)
 					.collect(Collectors.toList());
 		}
 		
 		if(priceMin != -1)
 		{
 			InstrumentPage = InstrumentPage.stream()
-					.filter((u) -> u.getPrice() >= priceMin || priceMin == 0)
+					.filter((u) -> u.getPrice() >= priceMin)
 					.collect(Collectors.toList());
 		}
 		
 		if(priceMax != -1)
 		{
 			InstrumentPage = InstrumentPage.stream()
-					.filter((u) -> u.getPrice() <= priceMax || priceMin == 0)
+					.filter((u) -> u.getPrice() <= priceMax)
 					.collect(Collectors.toList());
 		}
 		

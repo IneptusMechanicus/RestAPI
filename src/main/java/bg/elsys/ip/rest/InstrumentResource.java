@@ -19,6 +19,7 @@ public class InstrumentResource
 {
 
 	@GET
+	@Path("/")
 	@ApiOperation(value = "get list of instruments", response = Instrument.class, responseContainer = "List")
 	@Produces(MediaType.APPLICATION_JSON)
 	public PagedResponse getInstruments(@QueryParam("page") int page, 
@@ -31,7 +32,9 @@ public class InstrumentResource
 			@QueryParam("priceMax") int priceMax)
 	{
 		InstrumentService instrumentService = InstrumentService.getInstance();
-		PagedResponse instrumentPages = instrumentService.getPagedFiltered(page, perPage,
+		PagedResponse instrumentPages = instrumentService.getPagedFiltered(
+				page, 
+				perPage,
 				typeFilter,
 				brandFilter,
 				modelFilter, 
@@ -42,6 +45,7 @@ public class InstrumentResource
 	}
 
 	@POST
+	@Path("/")
 	@ApiOperation(value = "create new instrument", response = Instrument.class)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

@@ -1,13 +1,20 @@
 $(document).ready(function(){
 
-	$("#button").click(function ()
+	var page = 0;
+	var totalPages;
+	$("#prev").click(function(){
+			if (page > 0) page--;
+			else page = totalPages;
+		});
+	$("#next").click(function(){
+			if (page < totalPages) page++;
+			else page = 0;
+		});
+	
+	$(".showData").click(function ()
 	{	
-		var page = 0;
-		if(this.id != "")
-		{
-			page = parseInt(this.id);
-		}
-		
+		page = 0;
+		$(".dataLine").remove();
 		var perPage = $("#perPage").val();
 		if(perPage == 0 || perPage == "")
 		{
@@ -16,30 +23,29 @@ $(document).ready(function(){
 		}
 		
 		var typeFilter;
-		if($("#typeFilter").val() === 'undefined') typeFilter = "";
-		else typeFilter = $("typeFilter").val();
+		if($("#typeFilter").val()) typeFilter = $("#typeFilter").val();
+		else typeFilter = "";
 		
 		var brandFilter;
-		if($("#brandFilter").val() === 'undefined') brandFilter = "";
-		else brandFilter = $("brandFilter").val();
+		if($("#brandFilter").val()) brandFilter = $("#brandFilter").val();
+		else brandFilter = "";
 		
 		var modelFilter;
-		if($("#modelFilter").val() === 'undefined') modelFilter = "";
-		else modelFilter = $("modelFilter").val();
+		if($("#modelFilter").val()) modelFilter = $("#modelFilter").val();
+		else modelFilter = "";
 		
 		var yearFilter;
-		if($("#yearFilter").val() === 'undefined') yearFilter = 0;
-		else yearFilter = $("yearFilter").val();
+		if($("#yearFilter").val()) yearFilter = $("#yearFilter").val();
+		else yearFilter = 0;
 		
 		var priceMin;
-		if($("#priceMin").val() === 'undefined') priceMin = -1;
-		else priceMin = $("priceMin").val();
+		if($("#priceMin").val()) priceMin = $("#priceMin").val();
+		else priceMin = -1;
 		
 		var priceMax;
-		if($("#priceMax").val() === 'undefined') priceMax = -1;
-		else priceMax = $("priceMax").val();
+		if($("#priceMax").val()) priceMax = $("#priceMax").val();
+		else priceMax = -1;
 		
-		var totalPages;
 		var itemsNum = 0;
 		
 		$.get({
@@ -50,26 +56,24 @@ $(document).ready(function(){
 			+ "&modelFilter=" + modelFilter
 			+ "&yearFilter=" + yearFilter
 			+ "&priceMin=" + priceMin
-			+ "priceMax=" + priceMax,
+			+ "&priceMax=" + priceMax,
 			dataType: "json",
 			success: function(data){
 				console.log(data);
-				$.each(data, function(index){
-					var tr = $('<tr>');
-					tr.append("<td> " + data[index].type + 
-							  "</td>\n<td>" + data[index].brand + 
-							  "</td>\n<td>" + data[index].model + 
-							  "</td>\<td>" +  data[index].year +
-							  "</td>\<td>" + data[index].price + "</td>");
+				$.each(data["data"], function(index){
+					var tr = $('<tr class="dataLine">');
+					tr.append("<td> " + data["data"][index].type + 
+							  "</td>\n<td>" + data["data"][index].brand + 
+							  "</td>\n<td>" + data["data"][index].model + 
+							  "</td>\n<td>" + data["data"][index].year +
+							  "</td>\n<td>" + data["data"][index].price + "</td>");
 					$("#instrumentsTable").append(tr);
 					itemsNum++;
 				});
-				var pagination = $('<div id="pages">');
-				for(var i = 0; i < Math.ceil(itemsNum / perPage); i++){
-					pagination.append('<button id="'+i+'">' + i + '</button>');
-				}
-				pagination.append('</div>');
-				$("#pageButtons").append(pagination);
+				totalPages = Math.ceil(itemsNum / perPage);
+			},
+			error: function(jqXHR, textStatus, errorThrown){
+				window.alert(jqXHR.status + " " + textStatus);
 			}
 
 		});
